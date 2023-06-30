@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\AppointmentRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AppointmentRepository::class)]
@@ -14,8 +13,8 @@ class Appointment
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date = null;
+    #[ORM\Column(length: 60)]
+    private ?string $date = null;
 
     #[ORM\ManyToOne(inversedBy: 'appointments')]
     #[ORM\JoinColumn(nullable: false)]
@@ -23,19 +22,19 @@ class Appointment
 
     #[ORM\ManyToOne(inversedBy: 'patients')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Pacient $appointments = null;
+    private ?Pacient $patient = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDate(): ?string
     {
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): static
+    public function setDate(string $date): static
     {
         $this->date = $date;
 
@@ -54,14 +53,14 @@ class Appointment
         return $this;
     }
 
-    public function getAppointments(): ?Pacient
+    public function getPatient(): ?Pacient
     {
-        return $this->appointments;
+        return $this->patient;
     }
 
-    public function setAppointments(?Pacient $appointments): static
+    public function setPatient(?Pacient $patient): static
     {
-        $this->appointments = $appointments;
+        $this->patient = $patient;
 
         return $this;
     }

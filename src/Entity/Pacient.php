@@ -24,12 +24,12 @@ class Pacient
     #[ORM\Column(length: 255)]
     private ?string $healthMatter = null;
 
-    #[ORM\OneToMany(mappedBy: 'appointments', targetEntity: Appointment::class, orphanRemoval: true)]
-    private Collection $patients;
+    #[ORM\OneToMany(mappedBy: 'appointments', targetEntity: appointment::class, orphanRemoval: true)]
+    private Collection $appointments;
 
     public function __construct()
     {
-        $this->patients = new ArrayCollection();
+        $this->appointments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -76,27 +76,27 @@ class Pacient
     /**
      * @return Collection<int, Appointment>
      */
-    public function getPatients(): Collection
+    public function getAppointments(): Collection
     {
-        return $this->patients;
+        return $this->appointments;
     }
 
-    public function addPatient(Appointment $patient): static
+    public function addAppointment(Appointment $appointment): static
     {
-        if (!$this->patients->contains($patient)) {
-            $this->patients->add($patient);
-            $patient->setAppointments($this);
+        if (!$this->appointments->contains($appointment)) {
+            $this->appointments->add($appointment);
+            $appointment->setPatient($this);
         }
 
         return $this;
     }
 
-    public function removePatient(Appointment $patient): static
+    public function removeAppointment(appointment $appointment): static
     {
-        if ($this->patients->removeElement($patient)) {
+        if ($this->appointments->removeElement($appointment)) {
             // set the owning side to null (unless already changed)
-            if ($patient->getAppointments() === $this) {
-                $patient->setAppointments(null);
+            if ($appointment->getPatient() === $this) {
+                $appointment->setPatient(null);
             }
         }
 

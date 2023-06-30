@@ -27,6 +27,7 @@ class PacientController extends AbstractController
                 'name' => $patient->getName(),
                 "surname" => $patient->getSurname(),
                 "healthMatter" => $patient->getHealthMatter(),
+                "appointments" => $patient->getAppointments()
             ];
         }
 
@@ -72,6 +73,7 @@ class PacientController extends AbstractController
             'name' => $patient->getName(),
             "surname" => $patient->getSurname(),
             "healthMatter" => $patient->getHealthMatter(),
+            "appointments" => $patient->getAppointments()
         ];
 
         return $this->json($data);
@@ -98,6 +100,7 @@ class PacientController extends AbstractController
             'name' => $patient->getName(),
             "surname" => $patient->getSurname(),
             "healthMatter" => $patient->getHealthMatter(),
+            "appointments" => $patient->getAppointments()
         ];
 
         return $this->json($data);
